@@ -1,13 +1,8 @@
 # Класс Фильм
 class Film < Product
-  # Объявим методы-геттеры для переменных экземпляра класса Фильм:
-  #
-  # @title — название книги
-  # @year — год выхода фильма
-  # @director — фамилия и имя режиссера
-  attr_reader :title, :year, :director
+  # Аналогично классу Product мы объями сеттеры и геттеры для переменных экземпляра класса Film с помощью attr_accessor, чтобы их можно было менять из основной программы.
+  attr_accessor :title, :year, :director
 
-  # В конструкторе класса Film вызовем конструктор класса-родителя Product, он заполнит переменные экземпляра @price и @amount, а остальные поля, специфичные только для фильма, заполним мы самостоятельно.
   def initialize(params)
     super
 
@@ -16,8 +11,16 @@ class Film < Product
     @director = params[:director]
   end
 
-  # Метод to_s возвращает строку с описанием фильма и дергает родительский метод to_s, чтобы склеить эту строку с ценой и остатком.
   def to_s
     "Фильм «#{@title}», #{@year}, реж. #{@director}, #{super}"
+  end
+
+  # Метод update у ребенка обновляет специфичные для ребенка поля и вызывает метод родителя, чтобы тот обновил цену и остаток.
+  def update(params)
+    super
+
+    @title = params[:title] if params[:title]
+    @year = params[:year] if params[:year]
+    @director = params[:director] if params[:director]
   end
 end

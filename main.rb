@@ -1,7 +1,5 @@
-# Программа-магазин книг и фильмов. Версия 0.1 — заготовка.
-#
-# (с) rubyrush.ru
-# Программа-магазин книг и фильмов. Версия 0.2 — с персональными конструкторами для классов-детей Book и Film и методами to_s.
+# Программа-магазин книг и фильмов. Версия 0.3 — с сетерами и методом update
+# для родителя и классов-детей Book и Film и методами to_s.
 #
 # (с) goodprogrammer.ru
 #
@@ -10,26 +8,15 @@ require_relative 'lib/product'
 require_relative 'lib/book'
 require_relative 'lib/film'
 
-# Воспользуемся крутыми конструкторами для классов Film и Book и создадим несколько товаров.
-products = []
+# Создадим несколько продуктов и поменяем их с помощью сеттеров и метода update
+film = Film.new(title: 'Леон', director: 'Люк Бессон', price: 990)
+film.year = 1994
+film.update(amount: 5)
 
-products << Film.new(
-  title: 'Леон', year: '1994', director: 'Люк Бессон', price: 990, amount: 5
-)
+book = Book.new(title: 'Идиот', genre: 'роман', amount: 10)
+book.author = 'Федька Достоевский'
+book.update(author: 'Фёдор Достоевский', price: 1500)
 
-products << Film.new(
-  title: 'Дурак', year: '2014', director: 'Юрий Быков', price: 390, amount: 1
-)
-
-products << Book.new(
-  title: 'Идиот',
-  genre: 'роман',
-  author: 'Федор Достоевский',
-  price: 1500,
-  amount: 10
-)
-
-# Выводим все продукты в консоль просто передавая их методу puts
-puts 'Вот какие товары у нас есть:'
-puts
-products.each { |product| puts product }
+# Выведем результат на экран
+puts film
+puts book
