@@ -1,5 +1,7 @@
-# Программа-магазин книг и фильмов. Версия 0.3 — с сетерами и методом update
-# для родителя и классов-детей Book и Film и методами to_s.
+# encoding: utf-8
+#
+# Программа-магазин книг и фильмов. Версия 0.4 — с методом класса from_file для
+# каждого класса-ребенка (для родителя метод вызывает ошибку)
 #
 # (с) goodprogrammer.ru
 #
@@ -8,15 +10,18 @@ require_relative 'lib/product'
 require_relative 'lib/book'
 require_relative 'lib/film'
 
-# Создадим несколько продуктов и поменяем их с помощью сеттеров и метода update
-film = Film.new(title: 'Леон', director: 'Люк Бессон', price: 990)
-film.year = 1994
-film.update(amount: 5)
+# Считываем наши книгу и фильм из папок data/books и data/films соответственно
+current_path = File.dirname(__FILE__)
+film = Film.from_file(current_path + '/data/films/01.txt')
+book = Film.from_file(current_path + '/data/books/01.txt')
 
-book = Book.new(title: 'Идиот', genre: 'роман', amount: 10)
-book.author = 'Федька Достоевский'
-book.update(author: 'Фёдор Достоевский', price: 1500)
-
-# Выведем результат на экран
+# Выводим их на экран
 puts film
 puts book
+
+# Пытаемся вызвать метод from_file у класса Product и ловим ошибку
+begin
+  Product.from_file(current_path + '/data/films/01.txt')
+rescue NotImplementedError
+  puts 'Метод класса Product.from_file не реализован'
+end

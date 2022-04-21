@@ -1,7 +1,21 @@
+# encoding: utf-8
+#
 # Класс Книга
 class Book < Product
-  # Аналогично классу Product мы объями сеттеры и геттеры для переменных экземпляра класса Book с помощью attr_accessor, чтобы их можно было менять из основной программы.
   attr_accessor :title, :genre, :author
+
+  # Метод класса from_file считывает данные о книге из файла, путь к которому ему передали в качестве параметра и передает их на вход своему же конструктору с нужными ключами.
+  def self.from_file(file_path)
+    lines = File.readlines(file_path, encoding: 'UTF-8').map { |l| l.chomp }
+
+    self.new(
+      title: lines[0],
+      genre: lines[1],
+      author: lines[2],
+      price: lines[3].to_i,
+      amount: lines[4].to_i
+    )
+  end
 
   def initialize(params)
     super
@@ -15,7 +29,6 @@ class Book < Product
     "Книга «#{@title}», #{@genre}, автор — #{@author}, #{super}"
   end
 
-  # Метод update у ребенка обновляет специфичные для ребенка поля и вызывает метод родителя, чтобы тот обновил цену и остаток.
   def update(params)
     super
 
